@@ -65,7 +65,7 @@ namespace WpfApp2
 					users[i] = new User { Name = generator.Name.FirstName(Bogus.DataSets.Name.Gender.Male), Surname = generator.Name.LastName(Bogus.DataSets.Name.Gender.Male), Age = generator.Random.Int(18, 45)};
 				}
 
-				Task process = new Task(new Action(() => startProcess(users, context));
+				Task process = new Task(new Action(() => startProcess(users, context)));
 				process.Start();
 				
 			}
