@@ -30,7 +30,7 @@ namespace WpfApp2
 
 		private void startProcess(User[] users, EFcontext context)
 		{
-			addToDatabaseButton.IsEnabled = false;
+			Dispatcher.BeginInvoke(new Action(() => { addToDatabaseButton.IsEnabled = false }));
 
 			double processPercentage = (double)addingProgressBar.Maximum / Convert.ToDouble(countOfElementsTextBox.Text);
 
@@ -47,10 +47,10 @@ namespace WpfApp2
 
 			context.SaveChanges();
 			stopWatch.Stop();
-			MessageBox.Show(Math.Round(stopWatch.Elapsed.TotalSeconds, 2).ToString() + " sec", "Time");
-			addingProgressBar.Value = 0;
+			Dispatcher.BeginInvoke(new Action(() => { MessageBox.Show(Math.Round(stopWatch.Elapsed.TotalSeconds, 2).ToString() + " sec", "Time"); }));
+			Dispatcher.BeginInvoke(new Action(() => { addingProgressBar.Value = 0; }));
 
-			addToDatabaseButton.IsEnabled = true;
+			Dispatcher.BeginInvoke(new Action(() => { addToDatabaseButton.IsEnabled = true; }));
 		}
 
 		private async void Button_Click_1(object sender, RoutedEventArgs e)
