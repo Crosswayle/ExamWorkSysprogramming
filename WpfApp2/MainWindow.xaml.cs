@@ -28,19 +28,18 @@ namespace WpfApp2
 
 		}
 
-		private void startProcess(User[] users, EFcontext context)
+		private void startProcess(User[] users, EFcontext context, string valueTextBox)
 		{
 			Dispatcher.BeginInvoke(new Action(() => { addToDatabaseButton.IsEnabled = false; }));
 
-			double processPercentage = (double)addingProgressBar.Maximum / Convert.ToDouble(countOfElementsTextBox.Text);
 
 			Stopwatch stopWatch = new Stopwatch();
 			stopWatch.Start();
 
-			for (int i = 0; i < Int32.Parse(countOfElementsTextBox.Text); i++)
+			for (int i = 0; i < Int32.Parse(valueTextBox); i++)
 			{
 				context.Users.Add(users[i]);
-				Dispatcher.BeginInvoke(new Action(() => { addingProgressBar.Value += processPercentage; }));
+				Dispatcher.BeginInvoke(new Action(() => { addingProgressBar.Value += (double)addingProgressBar.Maximum / Convert.ToDouble(countOfElementsTextBox.Text); }));
 				Thread.Sleep(150);
 
 			}
@@ -67,8 +66,10 @@ namespace WpfApp2
 
 				//Task process = new Task());
 				//process.Start();
-				await Task.Run(new Action(() => startProcess(users, context)));
-				MessageBox.Show("Completed");
+				string text = countOfElementsTextBox.Text;
+
+				await Task.Run(new Action(() => startProcess(users, context, text)));
+
 				
 			}
 		}
