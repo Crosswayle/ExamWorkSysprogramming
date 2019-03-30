@@ -30,7 +30,7 @@ namespace WpfApp2
 
 		private void startProcess(User[] users, EFcontext context)
 		{
-			Dispatcher.BeginInvoke(new Action(() => { addToDatabaseButton.IsEnabled = false }));
+			Dispatcher.BeginInvoke(new Action(() => { addToDatabaseButton.IsEnabled = false; }));
 
 			double processPercentage = (double)addingProgressBar.Maximum / Convert.ToDouble(countOfElementsTextBox.Text);
 
