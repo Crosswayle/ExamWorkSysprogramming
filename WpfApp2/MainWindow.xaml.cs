@@ -53,7 +53,7 @@ namespace WpfApp2
 			addToDatabaseButton.IsEnabled = true;
 		}
 
-		private void Button_Click_1(object sender, RoutedEventArgs e)
+		private async void Button_Click_1(object sender, RoutedEventArgs e)
 		{
 			using (EFcontext context = new EFcontext())
 			{
@@ -65,8 +65,10 @@ namespace WpfApp2
 					users[i] = new User { Name = generator.Name.FirstName(Bogus.DataSets.Name.Gender.Male), Surname = generator.Name.LastName(Bogus.DataSets.Name.Gender.Male), Age = generator.Random.Int(18, 45)};
 				}
 
-				Task process = new Task(new Action(() => startProcess(users, context)));
-				process.Start();
+				//Task process = new Task());
+				//process.Start();
+				await Task.Run(new Action(() => startProcess(users, context)));
+				MessageBox.Show("Completed");
 				
 			}
 		}
